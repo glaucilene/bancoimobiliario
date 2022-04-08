@@ -4,20 +4,17 @@ import random
 
 class GameBoard():
 
-    board = []
-
     def __init__(self, number_positions):
         self.number_positions = number_positions
-        #self.board = []
+        self.board = []
     
     #TODO: tratar o erro nesta função
     #TypeError: 'GameBoard' object does not support item assignment
     def create_board(self):
-        global board
         for i in range(self.number_positions):
             print(i)
             print(Property(sale_value=10, rent_value=10))
-            board[i] = Property(sale_value=10, rent_value=10)
+            board = board + [Property(sale_value=10, rent_value=10)]
     
 
 class Property():
