@@ -1,6 +1,6 @@
 from ctypes import sizeof
 import random
-# TODO:
+# TODO: 
 
 class GameBoard():
 
@@ -8,13 +8,9 @@ class GameBoard():
         self.number_positions = number_positions
         self.board = []
     
-    #TODO: tratar o erro nesta função
-    #TypeError: 'GameBoard' object does not support item assignment
     def create_board(self):
         for i in range(self.number_positions):
-            print(i)
-            print(Property(sale_value=10, rent_value=10))
-            board = board + [Property(sale_value=10, rent_value=10)]
+            self.board = self.board + [Property(sale_value=10, rent_value=10)]
     
 
 class Property():
@@ -36,7 +32,7 @@ class Property():
 
 class Player():
 
-    def __init__(self, money, property=[]):
+    def __init__(self, money, property):
         self.money = money
         self.property = property
 
@@ -50,6 +46,13 @@ class Simulator():
         list_players = [i+1 for i in range(self.number_players)]
         list_players = random.sample(list_players, self.number_players)
         return list_players
+    
+    def run(self):
+        game_board = GameBoard(number_positions=20)
+        game_board.create_board()
+        print(f'Create board.\nNumber of positions: {game_board.number_positions}.\nProperty, Sale Value in position 0:{game_board.board[0].sale_value}\nProperty, Rent Value in position 0:{game_board.board[0].sale_value}')
+
+        print(f'Players sequence: {self.sort_players()}')
 
 
 class Turns():
@@ -65,6 +68,4 @@ class Turns():
     #     return None
 
 if __name__ == '__main__':
-    board = GameBoard(number_positions=20)
-    board.create_board()
-    print(board.board)
+    Simulator(number_players=4).run()
