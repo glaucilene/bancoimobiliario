@@ -1,6 +1,6 @@
 from ctypes import sizeof
 import random
-# TODO: 
+# TODO: Item 74 (Tabuleiro), Verificar o Jogo da Lista Organizada (Turno)
 
 class GameBoard():
 
@@ -32,9 +32,11 @@ class Property():
 
 class Player():
 
-    def __init__(self, money, property):
+    def __init__(self, money, board_position, id, property = None):
         self.money = money
         self.property = property
+        self.board_position = board_position
+        self.id = id
 
 
 class Simulator():
@@ -52,14 +54,56 @@ class Simulator():
         game_board.create_board()
         print(f'Create board.\nNumber of positions: {game_board.number_positions}.\nProperty, Sale Value in position 0:{game_board.board[0].sale_value}\nProperty, Rent Value in position 0:{game_board.board[0].sale_value}')
 
-        print(f'Players sequence: {self.sort_players()}')
+        list_position_players = self.sort_players()
+
+        print(f'Players sequence: {list_position_players}')
+
+        print('Teste turno')
+        turn = Turns(number_turns=2)
+        players = turn.player_create(list_position_players)
+
+        # TODO: preparar while para simulação
+
+        # turn.turn_control(players=players)
 
 
 class Turns():
 
-    def __init__(self, number_turns=None, turn=None):
+    def __init__(self, number_turns):
         self.number_turns = number_turns
-        self.turn = turn
+        self.turn = 0
+
+    def player_create(self, list_players):
+        players = []
+        if self.turn == 0:
+            for player_id in list_players:
+                player = Player(money=300, board_position=0, id=player_id)
+                players.append(player)
+        
+        print(players)
+        for player in players:
+            print(player.id)
+
+        return players
+
+    
+    def turn_control(self, players):
+        # (Na jogada 1000 jogador com maior saldo ganha) - critério desempate é ordem dos jogadores
+        if self.turn == 1000:
+            greater_balance = 0
+            winner = None
+            for player in players:
+                if player.money > greater_balance:
+                    greater_balance = player.money
+                    winner = player
+            print(f'O ganhador foi o jogador:{winner.id}')
+        else:
+            self.turn = self.turn + 1
+            # TODO: poderia verificar se tem nova lista de jogadores - Checar onde por
+            for player in players:
+                pass
+                # TODO: sortear o dado
+
 
     # def turns(self, list_players):
     #     turn_control = {}
