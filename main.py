@@ -10,8 +10,7 @@ class GameBoard():
     
     def create_board(self):
         for i in range(self.number_positions):
-            self.board = self.board + [Property(sale_value=10, rent_value=10)]
-    
+            self.board.append(Property(sale_value=10, rent_value=10))
 
 class Property():
 
@@ -87,7 +86,7 @@ class Turns():
         return players
 
     
-    def turn_control(self, players):
+    def turn_control(self, players, game_board):
         # (Na jogada 1000 jogador com maior saldo ganha) - critério desempate é ordem dos jogadores
         if self.turn == 1000:
             greater_balance = 0
@@ -101,9 +100,16 @@ class Turns():
             self.turn = self.turn + 1
             # TODO: poderia verificar se tem nova lista de jogadores - Checar onde por
             for player in players:
-                pass
-                # TODO: sortear o dado
-
+                die_result = random.randint(1, 6)
+                if (player.board_position + die_result) > 20:
+                    new_die = (player.board_position + die_result) - 20
+                    player.board_position = new_die
+                else:
+                    player.board_position += die_result
+                
+                # TODO: Fazer teste da implementação
+                if game_board.board[player.board_position].return_property() != None:
+                    game_board.board[player.board_position].pay_rent_property(player=player, owner=game_board.board[player.board_position].owner)
 
     # def turns(self, list_players):
     #     turn_control = {}
