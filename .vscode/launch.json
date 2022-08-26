@@ -1,0 +1,31 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: Current File",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "justMyCode": true
+        },
+        {
+            "name": "experimental_release",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/main.py",
+            "console": "integratedTerminal",
+            "justMyCode": false,
+            "args": [
+                "--sensors",
+                "sentinel2",
+                "--data-release",
+                "debug_experimental_release",
+                "--total-num-jobs",
+                "100",
+                "--run-num-jobs",
+                "1"
+            ]
+        }
+    ]
+}

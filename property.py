@@ -16,7 +16,7 @@ class Property():
             else:
                 player.property = [self]
         else:
-            print("No money")
+            print("No money to buy property")
 
     def pay_rent_property(self, player, owner):
         player.money = player.money - self.rent_value
