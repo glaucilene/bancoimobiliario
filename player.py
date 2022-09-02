@@ -6,6 +6,7 @@ class Player():
         self.board_position = board_position
         self.id = id
     
+
     def is_valid_player(self, player):
         if player.money < 0:
             return False

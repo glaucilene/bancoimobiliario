@@ -6,6 +6,12 @@ class Turns():
     def __init__(self, number_turns):
         self.number_turns = number_turns
         self.turn = 0
+        self.players = []
+
+
+    @property
+    def last_turn(self):
+        return self.turn >= self.number_turns
 
     def player_create(self, list_players):
         players = []
@@ -17,11 +23,21 @@ class Turns():
         print('List object players: ', players)
         for player in players:
             print('Player ID: ', player.id)
+        
+        self.players = players
+        return self.players 
 
-        return players
-
+    def get_winner(self):
+        greater_balance = 0
+        winner = None
+        for player in self.players:
+            if player.money > greater_balance:
+                greater_balance = player.money
+                winner = player
+        return winner
     
     def turn_control(self, players, game_board):
+        print(game_board)
         # (Na jogada 1000 jogador com maior saldo ganha) - critério desempate é ordem dos jogadores
         print('\n\n\n\nActual turn: ', self.turn)
         self.turn = self.turn + 1
@@ -33,8 +49,8 @@ class Turns():
             die_result = random.randint(1, 6)
             print('Die result: ', die_result)
             print('Player position before: ', player.board_position)
-            if (player.board_position + die_result) > 20:
-                new_die = (player.board_position + die_result) - 20
+            if (player.board_position + die_result) >= 20:
+                new_die = abs((player.board_position + die_result) - 20)
                 player.board_position = new_die
                 print('Player position after verif end board, new position: ', player.board_position)
             else:
