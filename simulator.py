@@ -4,7 +4,7 @@ import random
 
 class Simulator():
 
-    def __init__(self, number_players=None, number_turns=1000):
+    def __init__(self, number_players=None, number_turns=10):
         self.number_players = number_players
         self.list_players = list(range(1, self.number_players + 1))
         self.players_position = None
@@ -16,7 +16,7 @@ class Simulator():
         if not self.players_position:
             self.players_position = random.sample(self.list_players, self.number_players)
         return self.players_position
-    
+
     def create_board(self):
         self.board = GameBoard(number_positions=20)
         self.board.create_board()
@@ -34,8 +34,7 @@ class Simulator():
         while not turn.last_turn:
             turn.turn_control(players=players, game_board=self.board)
 
-        print("entra aqui")
         print(turn.turn, turn.number_turns)
         if turn.last_turn:
             winner = turn.get_winner()
-            print(f'O ganhador foi o jogador:{winner.id}')
+            print(f'The winner is: {winner.id}')
